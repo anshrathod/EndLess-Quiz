@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { GetquestionsService } from "./getquestions.service";
+// import { ProgressBarComponent } from '../app/progress-bar/progress-bar.component';
 
 // for using RestAPI in my game
 import { HttpClientModule } from '@angular/common/http';

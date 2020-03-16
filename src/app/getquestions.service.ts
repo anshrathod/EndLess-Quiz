@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
 
-const apiUrl = "http://f5d17ed5.ngrok.io";
+const apiUrl = "https://endlessquizapi.appspot.com/";
 @Injectable({
   providedIn: 'root'
 })
