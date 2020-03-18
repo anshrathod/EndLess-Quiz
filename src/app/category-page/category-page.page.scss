@@ -1,0 +1,42 @@
+.changecattext {
+	font-size: 125%;
+	letter-spacing: 0.25rem;
+	margin: auto;
+	padding: auto;
+	text-align: center;
+	font-weight: 800;
+	opacity: 0.8;
+}
+.category {
+	margin: 2%;
+	background-color: black;
+	opacity: 0.75;
+	border: 0.2rem;
+	border-radius: 1.5rem;
+	padding: 5%;
+	padding-top: 10%;
+	padding-bottom: 10%;
+	height: 100%;
+	width: 100%;
+}
+
+.categorytext,
+.categorytext:hover,
+.categorytext:active {
+	font-size: 60%;
+	color: white;
+	margin: auto;
+	padding: 50%;
+	letter-spacing: 0.15rem;
+}
+
+#show-cats {
+	overflow-y: scroll;
+	margin: auto;
+	margin-right: 2%;
+}
+
+.category:hover {
+	opacity: 0.5;
+	color: black;
+}

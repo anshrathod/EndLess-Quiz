@@ -1,38 +1,59 @@
 <ion-content id="main" [fullscreen]="false" class="main">
-    <div class="container">
-      <ion-row class="top-bar">
-        <ion-col size = "4">
-          <ion-button size="small" fill = "clear" expand = "block" class="buttonhm">
-            <p class="learn">LEARN</p>
-          </ion-button>
-        </ion-col>
-        <ion-col size = "5">
-          <p class="points">{{ points }}</p>
-        </ion-col>
-        <ion-col size = "3">
-          <ion-button size="small" fill = "clear" expand = "block" class="buttonhm" (click)="skipquestion($event)">
-            <p class="skip">SKIP</p>
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </div>
-    <div id = "questionandanswer">
-      <p id = "question" class="strong">{{ question }}</p>
-      <div class="progress-bar-div">
-        <!-- <ion-progress-bar id = "progress-bar" [progress] = 'getpbvalue' buffer="0.25" color = "favourite"></ion-progress-bar> -->
-      </div>
-      <ion-button class = "answer" *ngFor = "let ans of answer_options" expand = "block" (click)="selectanswer($event, ans, correct_ans)" size = "large" fill = "clear" id = "{{ ans }}">
-        <p class = "answertext" (click)="selectanswer($event, ans, correct_ans)" id = "{{ ans }}">
-          {{ ans }}
-        </p>
-      </ion-button>
-      <morph-carousel data-items="items" on-selected="selectedItem" identifier="modal-carousel" show-value="number"></morph-carousel>
-    <!-- <div>
-      <ion-slides <ion-slides "bottomPanelSlides" no-padding lazyLoading [slidesPerView]="3">
-        <ion-slide *ngFor="let slide of slides; let i = index" [attr.data-index]="i">
-            <img [hidden]="sliderLoading" (load)="revealSlides();" src="./assets/img/filtersubject.png" [attr.data-index]="i"/>
-        </ion-slide>
-    </ion-slides>
-    </div> -->
-    </div>
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="changeTheme()">
+			<ion-icon name="color-fill-outline"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<ion-fab vertical="bottom" horizontal="start" slot="fixed">
+		<ion-fab-button (click)="changeCategory()">
+			<ion-icon name="albums-outline"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<div class="container">
+		<ion-row class="top-bar">
+			<ion-col size="4">
+				<ion-button size="small" fill="clear" expand="block" class="buttonhm">
+					<p class="learn">LEARN</p>
+				</ion-button>
+			</ion-col>
+			<ion-col size="4">
+				<p class="points">{{ points }}</p>
+			</ion-col>
+			<ion-col size="4">
+				<ion-button
+					size="small"
+					fill="clear"
+					expand="block"
+					class="buttonhm"
+					(click)="skipquestion($event)"
+				>
+					<p class="skip">SKIP</p>
+				</ion-button>
+			</ion-col>
+		</ion-row>
+	</div>
+	<div id="questionandanswer">
+		<!-- <ion-button class="category" fill = "clear">
+        <p class = "categorytext" (click)="showBasicPicker()">CATEGORY: {{ category }}</p>
+      </!-->
+		<p id="question" class="strong">{{ question }}</p>
+		<p class="categorytext">CATEGORY:{{ category }}</p>
+		<ion-button
+			class="answer"
+			*ngFor="let ans of answer_options"
+			expand="block"
+			(click)="selectanswer($event, ans, correct_ans)"
+			size="large"
+			fill="clear"
+			id="{{ ans }}"
+		>
+			<p
+				class="answertext"
+				(click)="selectanswer($event, ans, correct_ans)"
+				id="{{ ans }}"
+			>
+				{{ ans }}
+			</p>
+		</ion-button>
+	</div>
 </ion-content>

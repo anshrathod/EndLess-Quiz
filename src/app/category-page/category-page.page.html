@@ -1,0 +1,50 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-row>
+			<ion-col size="2">
+				<ion-tab-button (click)="closeCatModal()" style="opacity:1;">
+					<ion-icon name="close-outline"></ion-icon>
+				</ion-tab-button>
+			</ion-col>
+			<ion-col size="10">
+				<ion-title>
+				</ion-title>
+			</ion-col>
+		</ion-row>
+	</ion-toolbar>
+</ion-header>
+<div id="show-cats">
+	<ion-grid>
+		<ion-row>
+			<ion-col size="12">
+				<p class="changecattext">CATEGORIES</p>
+				<!-- <ion-button
+					class="category"
+					expand="block"
+					size="large"
+					fill="clear"
+					id="current_cat"
+				>
+					<p class="categorytext" id="current_cat">
+						Current: {{ cur_cat }}
+					</p>
+				</ion-button> -->
+			</ion-col>
+			<ion-col size="6" *ngFor="let cat of all_val">
+				<ion-button
+					class="category"
+					expand="block"
+					size="large"
+					fill="clear"
+					id="{{ cat }}"
+					(click)="selectcategory( cat )"
+				>
+					<p class="categorytext" id="{{ cat }}">
+						{{ cat }}
+					</p>
+				</ion-button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</div>
+<ion-content> </ion-content>
