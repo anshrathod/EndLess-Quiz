@@ -1,41 +1,15 @@
-:root {
-	--ion-font-family: "My Custom Font";
-	--ion-color-favorite: rgba(255, 255, 255, 0.5);
-	// --ion-color-favorite-rgb: 255,255,255;
-	// --ion-color-favorite-contrast: #000;
-	// --ion-color-favorite-contrast-rgb:0,0,0;
-	// --ion-color-favorite-shade: #5ca56c;
-	// --ion-color-favorite-tint: #78c288;
-}
-
-ion-picker {
-	--backdrop-opacity: 0.75;
-	--border-color: #00897b;
-	--height: 20%;
-	--color: black;
-}
-
-.ion-color-favorite {
-	--ion-color-base: var(--ion-color-favorite);
-	--ion-color-base-rgb: var(--ion-color-favorite-rgb);
-	--ion-color-contrast: var(--ion-color-favorite-contrast);
-	--ion-color-contrast-rgb: var(--ion-color-favorite-contrast-rgb);
-	--ion-color-shade: var(--ion-color-favorite-shade);
-	--ion-color-tint: var(--ion-color-favorite-tint);
-}
-
 @font-face {
 	font-family: "My Custom Font";
 	font-style: normal;
 	font-weight: normal;
-	src: url("../../assets/fonts/baloo-500.woff2");
+	src: url("../../assets/fonts/baloo-400.woff2");
 }
 
 @font-face {
 	font-family: "My Custom Font";
 	font-style: normal;
-	font-weight: bold;
-	src: url("../../assets/fonts/baloo-700.woff2");
+	font-weight: 800;
+	src: url("../../assets/fonts/baloo-800.woff2");
 	color: rgba(0, 0, 0, 0.5);
 }
 
@@ -49,32 +23,26 @@ ion-picker {
 @font-face {
 	font-family: "My Custom Font";
 	font-style: italic;
-	font-weight: bold;
-	src: url("../../assets/fonts/baloo-700.woff2");
+	font-weight: 800;
+	src: url("../../assets/fonts/baloo-800.woff2");
 }
-ion-fab-button {
-	--background: none;
-	background-color: black;
-	opacity: 0.5;
-	border: thin;
-	border-radius: 50%;
-}
-// ion-content{
-//   // --background: none;
-//   // background-color:#00897B;
-//   // background-image: url('../../assets/maybeback.jpeg');
-//   // background-position: center center;
-//   // background-repeat: no-repeat;
-//   // background-size: cover;
-// }
 
 .top-bar {
 	margin-top: 2.5%;
 }
 
-#questionandanswer {
-	left: 0;
-	right: 0;
+.points {
+	text-align: center;
+	color: rgba(0, 0, 0, 0.65);
+	font-size: 175%;
+	font-weight: 800;
+}
+
+.learn,
+.skip {
+	color: white;
+	padding: 5%;
+	margin: 2%;
 }
 
 #question {
@@ -85,19 +53,6 @@ ion-fab-button {
 	color: rgba(0, 0, 0, 0.65);
 	margin-top: 2.5%;
 	word-spacing: 0.3rem;
-}
-
-p {
-	color: rgba(255, 255, 255, 0.5);
-}
-
-.answertext,
-.answertext:hover,
-.answertext:active {
-	letter-spacing: 0.35rem;
-	font-size: 75%;
-	color: white;
-	margin: auto;
 }
 
 .categorytext,
@@ -113,7 +68,9 @@ p {
 	margin-bottom: 7.5%;
 }
 
-.answer {
+.answer,
+.answer:hover,
+.answer:active {
 	margin: 2% 2.5% 2% 2.5%;
 	background-color: black;
 	opacity: 0.5;
@@ -125,27 +82,13 @@ p {
 	height: 7.5%;
 }
 
-.category {
-	margin: 5% 17.5% 5% 17.5%;
-	background-color: black;
-	opacity: 0.5;
-	border: 0.2rem;
-	border-radius: 1.5rem;
-	padding: 3.5%;
-	padding-top: 7.5%;
-	padding-bottom: 7.5%;
-	height: 5%;
-	width: 65%;
-}
-
-.answer:hover {
-	background-color: black;
-	opacity: 0.7;
-}
-
-.answer:active {
-	background-color: black;
-	opacity: 0.5;
+.answertext,
+.answertext:hover,
+.answertext:active {
+	letter-spacing: 0.35rem;
+	font-size: 75%;
+	color: white;
+	margin: auto;
 }
 
 .buttonhm {
@@ -158,16 +101,10 @@ p {
 	border-radius: 0.5rem;
 }
 
-.points {
-	text-align: center;
-	color: rgba(0, 0, 0, 0.65);
-	font-size: 175%;
-	font-weight: 800;
-}
-
-.learn,
-.skip {
-	color: white;
-	padding: 5%;
+ion-fab-button {
+	--background: none;
+	background-color: black;
+	opacity: 0.5;
+	border-radius: 50%;
 	margin: 2%;
 }

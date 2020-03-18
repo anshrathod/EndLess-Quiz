@@ -10,6 +10,7 @@ import questionsoffline from '../../assets/offlinequestions.json';
 import myscore from '../../assets/scoreboard.json';
 import { CategoryPage } from '../category-page/category-page.page';
 import { IonRouterOutlet } from '@ionic/angular';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 const themes = {
 	slightred: {
@@ -312,23 +313,22 @@ export class HomePage {
 	};
 	public items: any;
 	public selectedItem: {};
-	public category: String;
+	public category: string;
 	private categoryoptions: string[];
-	private userid: any;
+	private userid: string;
+	private usertheme: string;
 
 	constructor(
 		private getquestion: GetquestionsService,
 		private theme: ThemeService,
 		private modal: ModalController,
 		private router: IonRouterOutlet,
-		private storage: Storage
+		private storage: Storage,
+		private statusbar: StatusBar
 	) {
+		this.statusbar.overlaysWebView(false);
 		this.getquest = this.getquestion;
-		let hmm = this.getQuestion();
-		this.question = '';
-		this.answer_options = [ '', '', '' ];
-		this.correct_ans = '';
-		this.answer_options.push(this.correct_ans.toString());
+		this.getQuestion();
 		this.counter = 1;
 		this.points = myscore['score'];
 		this.categoryoptions = [
@@ -358,29 +358,45 @@ export class HomePage {
 			'ANIME',
 			'CARTOON'
 		];
-		this.category = 'RANDOM';
-		this.changeTheme();
+		storage
+			.get('usercategory')
+			.then(val => {
+				this.category = val;
+			})
+			.catch(err => {
+				console.log(this.category);
+				this.category = 'RANDOM';
+				storage.set('usercategory ', this.category.toString());
+			});
+		storage
+			.get('usertheme')
+			.then(val => {
+				this.usertheme = val;
+				this.theme.setTheme(themes[this.usertheme.toString()]);
+			})
+			.catch(err => {
+				this.usertheme = 'cyan';
+				storage.set('usertheme ', this.usertheme.toString());
+				this.theme.setTheme(themes[this.usertheme.toString()]);
+			});
 		storage
 			.get('userid')
 			.then(val => {
 				this.userid = val;
-				console.log('Userid' + this.userid.toString());
 			})
 			.catch(err => {
-				this.userid = 'Ansh';
-				storage.set('userid', this.userid);
-				console.log('Userid 2' + this.userid.toString());
+				this.userid = this.makeid(16);
+				storage.set('userid ', this.userid.toString());
 			});
 		storage
-			.get('points')
+			.get('userpoints')
 			.then(val => {
-				this.points = val;
-				console.log('Points1' + this.points.toString());
+				this.points = val.toString();
+				console.log(this.points);
 			})
 			.catch(err => {
 				this.points = 1100;
-				storage.set('points', this.points);
-				console.log('Points2' + this.points.toString());
+				storage.set('userpoints', this.points.toString());
 			});
 	}
 
@@ -412,9 +428,6 @@ export class HomePage {
 	private getQuestion() {
 		this.getquest.getquestion().subscribe(
 			(data: any) => {
-				var w = $('#offline-text');
-				w.innerHTML =
-					'Please Connect to the Internet.Your Points will be updated Only when you are connected to the Internet.';
 				if (
 					data['question'].length > 80 ||
 					data['option1'].length > 25 ||
@@ -435,8 +448,6 @@ export class HomePage {
 				}
 			},
 			(_error: any) => {
-				$('#offline-text').innerHTML =
-					'Please Connect to the Internet.Your Points will be updated Only when you are connected to the Internet.';
 				var data = this.getOfflineQuestion();
 				if (
 					data['question'].length > 80 ||
@@ -484,7 +495,7 @@ export class HomePage {
 		this.counter += 0.1;
 		var addnumber = 10 * this.counter;
 		this.points = this.points + addnumber;
-		this.storage.set('points', this.points);
+		this.storage.set('userpoints', this.points);
 	}
 
 	private decreasePoints() {
@@ -494,20 +505,20 @@ export class HomePage {
 		this.counter -= 0.1;
 		var addnumber = 10 * this.counter;
 		this.points -= addnumber;
-		this.storage.set('points', this.points);
+		this.storage.set('userpoints', this.points);
 	}
 
 	public skipquestion(_event: any) {
 		this.getQuestion();
 		this.points = this.points - 5;
-		this.storage.set('points', this.points);
+		this.storage.set('userpoints', this.points);
 	}
 
 	public changeTheme() {
 		var name = themenames[Math.floor(Math.random() * themenames.length)];
 		this.theme.setTheme(themes[name]);
-		console.log(themes[name]);
-		console.log(name);
+		this.usertheme = name;
+		this.storage.set('usertheme', name.toString());
 	}
 
 	public async changeCategory() {
@@ -530,12 +541,19 @@ export class HomePage {
 			this.category = data['data'];
 			if (prev_cat !== this.category) {
 				this.getQuestion();
+				this.storage.set('usercategory', this.category.toUpperCase().toString());
 			}
 		});
 		return cat_modal.present();
 	}
 
-	public selectCategory(cat: String) {
-		this.category = cat.toUpperCase();
+	private makeid(length: number) {
+		var result = '';
+		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		var charactersLength = characters.length;
+		for (var i = 0; i < length; i++) {
+			result += characters.charAt(Math.floor(Math.random() * charactersLength));
+		}
+		return result;
 	}
 }
