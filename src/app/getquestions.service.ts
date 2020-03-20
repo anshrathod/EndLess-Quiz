@@ -1,18 +1,21 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-const apiUrl = "https://endlessquizapi.appspot.com/";
+const apiUrl = 'https://endlessquizapi.appspot.com/';
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class GetquestionsService {
+	constructor (public http: HttpClient) {
+		console.log('Hello Friends');
+	}
 
-  constructor(public http:HttpClient) { 
-    console.log('Hello Friends');
-  }
-
-  getquestion(){
-    console.log("Getting Question");
-    return this.http.get(apiUrl)
-  }
+	getquestion (category) {
+		console.log('Getting Question');
+		if (category === 'RANDOM') {
+			return this.http.get(apiUrl);
+		} else {
+			return this.http.get(apiUrl + '?category=' + category);
+		}
+	}
 }

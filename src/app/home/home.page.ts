@@ -309,7 +309,7 @@ export class HomePage {
 	private counter: number;
 	private questions = questionsoffline['questions'];
 	private sleep = (milliseconds: number) => {
-		return new Promise(resolve => setTimeout(resolve, milliseconds));
+		return new Promise((resolve) => setTimeout(resolve, milliseconds));
 	};
 	public items: any;
 	public selectedItem: {};
@@ -318,7 +318,7 @@ export class HomePage {
 	private userid: string;
 	private usertheme: string;
 
-	constructor(
+	constructor (
 		private getquestion: GetquestionsService,
 		private theme: ThemeService,
 		private modal: ModalController,
@@ -360,47 +360,47 @@ export class HomePage {
 		];
 		storage
 			.get('usercategory')
-			.then(val => {
-				this.category = val;
+			.then((val) => {
+				this.category = val.toString();
 			})
-			.catch(err => {
+			.catch((err) => {
 				console.log(this.category);
-				this.category = 'RANDOM';
+				this.category = 'RANDOM'.toString();
 				storage.set('usercategory ', this.category.toString());
 			});
 		storage
 			.get('usertheme')
-			.then(val => {
+			.then((val) => {
 				this.usertheme = val;
 				this.theme.setTheme(themes[this.usertheme.toString()]);
 			})
-			.catch(err => {
+			.catch((err) => {
 				this.usertheme = 'cyan';
 				storage.set('usertheme ', this.usertheme.toString());
 				this.theme.setTheme(themes[this.usertheme.toString()]);
 			});
 		storage
 			.get('userid')
-			.then(val => {
+			.then((val) => {
 				this.userid = val;
 			})
-			.catch(err => {
+			.catch((err) => {
 				this.userid = this.makeid(16);
 				storage.set('userid ', this.userid.toString());
 			});
 		storage
 			.get('userpoints')
-			.then(val => {
+			.then((val) => {
 				this.points = val.toString();
 				console.log(this.points);
 			})
-			.catch(err => {
-				this.points = 1100;
+			.catch((err) => {
+				this.points = 1000;
 				storage.set('userpoints', this.points.toString());
 			});
 	}
 
-	public selectanswer(_event: any, ans: string, correct_ans: { toString: () => any }) {
+	public selectanswer (_event: any, ans: string, correct_ans: { toString: () => any }) {
 		var w = $('ion-button');
 		if (ans === correct_ans.toString()) {
 			this.increasePoints();
@@ -425,8 +425,8 @@ export class HomePage {
 		});
 	}
 
-	private getQuestion() {
-		this.getquest.getquestion().subscribe(
+	private getQuestion () {
+		this.getquest.getquestion(this.category).subscribe(
 			(data: any) => {
 				if (
 					data['question'].length > 80 ||
@@ -471,7 +471,7 @@ export class HomePage {
 		);
 	}
 
-	private shuffleArray(array: any[]) {
+	private shuffleArray (array: any[]) {
 		for (var i = array.length - 1; i > 0; i--) {
 			var j = Math.floor(Math.random() * (i + 1));
 			var temp = array[i];
@@ -480,7 +480,7 @@ export class HomePage {
 		}
 	}
 
-	public getOfflineQuestion() {
+	public getOfflineQuestion () {
 		var max = Object.keys(this.questions).length;
 		var min = 0;
 		var index = Math.floor(Math.random() * (max - min + 1) + min);
@@ -488,7 +488,7 @@ export class HomePage {
 		return question;
 	}
 
-	private increasePoints() {
+	private increasePoints () {
 		if (this.counter < 1) {
 			this.counter = 1;
 		}
@@ -498,7 +498,7 @@ export class HomePage {
 		this.storage.set('userpoints', this.points);
 	}
 
-	private decreasePoints() {
+	private decreasePoints () {
 		if (this.counter > 1 || this.counter <= 0) {
 			this.counter = 1;
 		}
@@ -508,20 +508,20 @@ export class HomePage {
 		this.storage.set('userpoints', this.points);
 	}
 
-	public skipquestion(_event: any) {
+	public skipquestion (_event: any) {
 		this.getQuestion();
 		this.points = this.points - 5;
 		this.storage.set('userpoints', this.points);
 	}
 
-	public changeTheme() {
+	public changeTheme () {
 		var name = themenames[Math.floor(Math.random() * themenames.length)];
 		this.theme.setTheme(themes[name]);
 		this.usertheme = name;
 		this.storage.set('usertheme', name.toString());
 	}
 
-	public async changeCategory() {
+	public async changeCategory () {
 		const cat_modal = await this.modal.create({
 			component: CategoryPage,
 			swipeToClose: true,
@@ -535,7 +535,7 @@ export class HomePage {
 			}
 		});
 
-		cat_modal.onDidDismiss().then(data => {
+		cat_modal.onDidDismiss().then((data) => {
 			console.log(data);
 			var prev_cat = this.category;
 			this.category = data['data'];
@@ -547,7 +547,7 @@ export class HomePage {
 		return cat_modal.present();
 	}
 
-	private makeid(length: number) {
+	private makeid (length: number) {
 		var result = '';
 		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 		var charactersLength = characters.length;
